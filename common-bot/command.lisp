@@ -41,9 +41,10 @@
 
 (defun command (command)
   "Get a command designated by `command'."
-  (if (command-p command)
-      command
-      (get command 'command)))
+  (cond ((command-p command) command)
+	((symbolp command)
+	 (get command 'command))
+	(t (error "Invalid command designator!"))))
 
 (defun apply-command (command bot message arguments)
   "Apply a command function to arguments."

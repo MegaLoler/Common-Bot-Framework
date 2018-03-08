@@ -13,7 +13,7 @@
 
 (defpackage :bot
   (:documentation "Build bots and commands and deal with bot expressions.")
-  (:use :cl :bot.util)
+  (:use :cl :bot.util :gateway)
   (:export defbot
 	   make-bot
 	   bot-name
