@@ -1,5 +1,5 @@
 (defpackage :hug-bot
-  (:use :cl :bot :bot.commands))
+  (:use :cl :common-bot :common-bot.commands))
 (in-package :hug-bot)
 
 ;; i want defining bots to be this simple
@@ -49,7 +49,7 @@
    hug-bot
    `(discord
      ,(prompt "Discord Token: ")))
-
+  
   ;; connect the bot to skype too!
   ;; (bot-connect
   ;;  hug-bot

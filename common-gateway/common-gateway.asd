@@ -1,4 +1,4 @@
-(defsystem #:gateway
+(defsystem #:common-gateway
     :description "Abstract interface to chat services."
     :author "MegaLoler"
     :serial t

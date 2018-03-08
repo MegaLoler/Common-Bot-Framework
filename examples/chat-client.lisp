@@ -1,21 +1,21 @@
 (defpackage :chat-client
-  (:use :cl :gateway :discord-gateway))
+  (:use :cl :common-gateway :lispcord-gateway))
 (in-package :chat-client)
 
-;; an example chat client for the abstract chat service interface
+;; an example chat client for the Common Gateway abstract chat service interface
 
 ;; define event handlers
 
-(defevent connect (gateway)
+(deflistener connect (gateway)
   (format t "Connected to ~A as user ~A."
 	  (gateway-name gateway)
 	  (gateway-user gateway)))
 
-(defevent disconnect (gateway)
+(deflistener disconnect (gateway)
   (format t "Disconnected from ~A."
 	  (gateway-name gateway)))
 
-(defevent message (gateway message)
+(deflistener message (gateway message)
   (if (message-private-p message)
       (format t "[~A] ~A> ~A~%"
 	      (gateway-name gateway)

@@ -22,6 +22,6 @@
 	 (get event 'event))
 	(t (error "Invalid event designator!"))))
 
-(defun notify (event &rest args)
+(defun event-notify (event &rest args)
   "Trigger an event with arguments."
   (apply (event event) args))

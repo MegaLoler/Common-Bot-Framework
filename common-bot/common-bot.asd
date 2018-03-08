@@ -2,10 +2,12 @@
     :description "A framework for building chatbots."
     :author "MegaLoler"
     :serial t
-    :depends-on (#:gateway)
+    :depends-on (#:common-gateway)
     :components ((:file "package")
-		 (:file "util")
 		 (:file "bot")
 		 (:file "command")
+		 (:file "commands")
 		 (:file "bot-expression")
-		 (:file "commands")))
+		 (:file "bot-syntax")
+		 (:file "bot-syntaxes")
+		 (:file "util")))
