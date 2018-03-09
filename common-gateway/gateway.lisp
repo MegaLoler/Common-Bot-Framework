@@ -16,8 +16,8 @@
   "Whether an expression is a gateway specifier."
   (declare (type cons expression))
   (fboundp
-   (functionp
-    (get (car expression) 'gateway))))
+   (get (car expression)
+	'gateway)))
 
 (defun gateway (designator)
   "Return a gateway designated by a designator."
@@ -28,6 +28,9 @@
 		       'gateway)
 		  designator))
 	(t (error "Invalid gateway designator!"))))
+
+(defgeneric gateway-user (gateway)
+  (:documentation "Get an object representing the user account used to connect to the gateway."))
 
 (defgeneric gateway-servers (gateway)
   (:documentation "Get the servers of a gateway."))
@@ -44,11 +47,13 @@
   "Make a hash table of an array of event listeners for all defined events."
   (let ((listeners (make-hash-table)))
     (loop
-       :for event :across *events*
+       :for event :in *events*
        :do (setf (gethash event listeners)
 		 (make-array 0
+			     :fill-pointer t
 			     :adjustable t
-			     :element-type 'function)))))
+			     :element-type 'function)))
+    listeners))
 
 (defun gateway-get-listeners (gateway event)
   "Get the event listeners of a gateway for an event."
@@ -69,14 +74,3 @@
 
 (defgeneric gateway-send (gateway string channel)
   (:documentation "Send a chat message."))
-
-;; events
-
-(defevent :connect (gateway)
-  (:documentation "When the gateway has connected."))
-
-(defevent :disconnect (gateway)
-  (:documentation "When the gateway has disconnected."))
-
-(defevent :message (gateway message)
-  (:documentation "When a message has been received from the gateway."))

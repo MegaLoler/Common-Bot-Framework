@@ -2,15 +2,8 @@
 
 ;; event definitions
 
-(defvar *events* (make-array 0
-			     :fill-pointer t
-			     :adjustable t
-			     :element-type 'symbol))
-
-(defmacro defevent (event lambda-list options)
-  "Define a recognized event for a gateway."
-  (declare (ignorable lambda-list options)) ;; for now
-  (vector-push-extend event *events*))
+;; list of known events
+(defvar *events* '(:connect :disconnect :message))
 
 (defun event-notify (gateway event &rest arguments)
   "Notify event listeners of a gateway of an event with arguments."

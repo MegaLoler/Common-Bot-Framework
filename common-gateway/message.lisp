@@ -4,7 +4,7 @@
   "Represents a chat message."
   (id nil :type string :read-only t)
   (content nil :type string :read-only t)
-  (timestamp nil :type integer :read-only t)
+  (timestamp nil :type string :read-only t)
   (channel nil :type channel :read-only t)
   (author nil :type user :read-only t))
 
@@ -36,6 +36,22 @@
 (defun message-gateway (message)
   "Get the gateway of a message."
   (server-gateway (message-server message)))
+
+(defun message-peers (message)
+  "Get the users in the same channel as the message."
+  (channel-users (message-channel message)))
+
+(defun message-private-p (message)
+  "Whether a message occurs in a private channel or not."
+  (channel-private-p (message-channel message)))
+
+(defun message-public-p (message)
+  "Whether a message occurs in a public channel or not."
+  (channel-public-p (message-channel message)))
+
+(defun message-server-p (message)
+  "Whether a message is part of a server or not."
+  (channel-server-p (message-channel message)))
 
 (defgeneric message-revisions (message)
   (:documentation "Get the revisions/edits of a message.")) ;; return sequence of message objects

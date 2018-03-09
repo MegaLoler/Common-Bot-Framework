@@ -21,9 +21,10 @@
     (lispcord-channel
       (:include channel
 		(server nil
-			:type lispcord-server
+			:type (or null lispcord-server)
 			:read-only t)))
-  "Represents a Discord chat channel.")
+  "Represents a Discord chat channel."
+  (private nil :type boolean :read-only t))
 
 (defstruct
     (lispcord-message

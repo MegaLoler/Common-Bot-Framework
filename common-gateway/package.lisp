@@ -13,6 +13,7 @@
 	   gateway-specifier-p
 	   gateway-servers
 	   gateway-users
+	   gateway-user
 	   stringify
 	   make-listeners-table
 	   gateway-get-listeners
@@ -44,6 +45,9 @@
 	   channel-gateway
 	   channel-messages
 	   channel-users
+	   channel-private-p
+	   channel-public-p
+	   channel-server-p
 	   channel-print
 
 	   message
@@ -58,6 +62,10 @@
 	   message-in-channel
 	   message-server
 	   message-gateway
+	   message-peers
+	   message-private-p
+	   message-public-p
+	   message-server-p
 	   message-revisions
 	   message-print
 
