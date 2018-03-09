@@ -5,6 +5,7 @@
     :depends-on (#:common-gateway
 		 #:lispcord)
     :components ((:file "package")
+		 (:file "structs")
 		 (:file "gateway")
 		 (:file "server")
 		 (:file "channel")

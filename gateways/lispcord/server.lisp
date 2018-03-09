@@ -1,9 +1,5 @@
 (in-package :lispcord-gateway)
 
-(defstruct (lispcord-server (:include server))
-  "Represents a Discord chat server."
-  (gateway nil :type lispcord-gateway :read-only t))
-
 (defmethod server-channels ((server lispcord-server))
   "Get the channels in a Discord server."
   nil) ;todo
@@ -14,4 +10,4 @@
 
 (defmethod stringify ((server server))
   "User friendly string representation of a server in Discord."
-  (format nil "**~A**" (server-name channel))) ;; maybe change to a invite link?
+  (format nil "**~A**" (server-name server))) ;; maybe change to a invite link?

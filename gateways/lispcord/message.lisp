@@ -1,10 +1,5 @@
 (in-package :lispcord-gateway)
 
-(defstruct (lispcord-message (:include message))
-  "Represents a Discord chat message."
-  (channel nil :type lispcord-channel :read-only t)
-  (author nil :type lispcord-user :read-only t))
-
 (defmethod message-revisions ((message lispcord-message))
   nil) ;todo -- return sequence of revisions as message objects
 

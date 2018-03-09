@@ -4,11 +4,6 @@
   "Return a user designated by a string in the context of a lispcord gateway."
   nil) ;todo
 
-(defstruct (lispcord-user (:include user))
-  "Represents a Discord chat user."
-  (tag nil :type string :read-only t)
-  (gateway nil :type lispcord-gateway :read-only t))
-
 (defmethod discriminable-name ((user lispcord-user))
   "Get a name that can discriminate a user on the gateway (e.g. a Discord tag)."
   (lispcord-user-tag user))
@@ -19,4 +14,4 @@
 
 (defmethod stringify ((user lispcord-user))
   "User friendly string representation of a user in Discord."
-  (format nil "<@~A>" (user-id user))
+  (format nil "<@~A>" (user-id user)))
