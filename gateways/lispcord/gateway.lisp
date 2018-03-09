@@ -23,10 +23,7 @@
 
 (defmethod gateway-user ((gateway lispcord-gateway))
   "Get the Discord user account used to connect to Discord."
-  (make-lispcord-user :name "Bill"
-		      :id "765"
-		      :tag "Bill#2222"
-		      :gateway gateway)) ;todo 4 real
+  (lispcord-gateway-me gateway))
 
 (defun lispcord-gateway-init (gateway)
   "Initialize a lispcord gateway object."
@@ -74,8 +71,11 @@
 (defun make-lispcord-bot (gateway)
   "Setup a lispcord connection."
   ;; maybe try out the new event handler api instead
-  (lispcord.pipes::watch (lambda (payload)
-			   (declare (ignorable payload))
+  (lispcord.pipes::watch (lambda (ready-payload)
+			   (setf (lispcord-gateway-me gateway)
+				 (make-gateway-user-from-lispcord-user
+				  gateway
+				  (lc:user ready-payload)))
 			   (lispcord-on-ready gateway))
 			 lispcord:>status-ready>)
   (lispcord.pipes::watch (lambda (payload _) ;; not sure what these args are

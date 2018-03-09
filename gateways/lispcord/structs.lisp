@@ -7,6 +7,7 @@
       (:print-object lispcord-gateway-print))
   "Discord gateway via lispcord."
   (token nil :type string :read-only t)
+  (me nil :type (or null lispcord-user))
   (bot nil :type (or null lispcord::bot)))
 
 (defstruct
