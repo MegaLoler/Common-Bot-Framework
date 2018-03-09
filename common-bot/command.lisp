@@ -1,4 +1,4 @@
-(in-package :bot)
+(in-package :common-bot.command)
 
 (defmacro defcommand (aliases-and-options lambda-list &body body)
   "Define a command. `aliases-and-options' may be either a single symbol representing a single alias and no options, or it may be a list, the cdr of which are the options and the car of which may be either a single symbol representing a single alias or a list representing multiple aliases. All alias symbols have their `command' slot bound to the defined command.

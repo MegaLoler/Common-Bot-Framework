@@ -1,8 +1,8 @@
-(in-package :bot)
+(in-package :common-bot.bot-expression)
 
 (deftype bot-expression ()
   "An expression to be evaluated by a bot."
-  `(and list (not null)))
+  `cons)
 
 (defun bot-expression (bot expression)
   "Return the bot expression designated by `expression'."

@@ -4,4 +4,9 @@
     :serial t
     :depends-on (#:common-gateway
 		 #:lispcord)
-    :components ((:file "lispcord-gateway")))
+    :components ((:file "package")
+		 (:file "gateway")
+		 (:file "server")
+		 (:file "channel")
+		 (:file "message")
+		 (:file "user")))

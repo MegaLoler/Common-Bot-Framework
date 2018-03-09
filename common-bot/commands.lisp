@@ -1,4 +1,4 @@
-(in-package :bot.commands)
+(in-package :common-bot.commands)
 
 ;; some common bot commands that a lot of bots might find useful
 

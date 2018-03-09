@@ -1,27 +1,18 @@
-(in-package :gateway)
+(in-package :common-gateway.event)
 
 ;; event definitions
 
-(defmacro defevent (event-name lambda-list &body body)
-  "Define an event listener function."
-  `(setf (event ',event-name)
-	 (lambda ,lambda-list ,@body)))
+(defvar *events* (make-array 0
+			     :adjustable t
+			     :element-type 'symbol))
 
-(deftype event ()
-  "An event is just a function in this case."
-  'function)
+(defmacro defevent (event lambda-list options)
+  "Define a recognized event for a gateway."
+  (declare (ignorable lambda-list options)) ;; for now
+  (vector-push-extend event *events*))
 
-(defun event-p (value)
-  "Whether `value' is of type `event'."
-  (typep value 'event))
+;; todo: instead of globally recognized events, make subclasses of gateways able to extend the known events
 
-(defun event (event)
-  "Get an event designated by `event'."
-  (cond ((event-p event) event)
-	((symbolp event)
-	 (get event 'event))
-	(t (error "Invalid event designator!"))))
+;; todo: make event struct to store documentation and lambda list approprate for handlers of the event
 
-(defun event-notify (event &rest args)
-  "Trigger an event with arguments."
-  (apply (event event) args))
+;; todo: event-listener struct and deflistener that ensures functions are appropriate for the event

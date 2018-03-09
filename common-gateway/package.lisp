@@ -3,9 +3,11 @@
   (:use :cl
 	:common-gateway.gateway
 	:common-gateway.event
+	:common-gateway.server
 	:common-gateway.channel
 	:common-gateway.message
-	:common-gateway.user))
+	:common-gateway.user
+	:common-gateway.util))
 
 (defpackage :common-gateway.gateway
   (:documentation "Abstract chat service interface.")
@@ -13,6 +15,10 @@
 
 (defpackage :common-gateway.event
   (:documentation "Event and listener definitions.")
+  (:use :cl))
+
+(defpackage :common-gateway.server
+  (:documentation "Chat server objects.")
   (:use :cl))
 
 (defpackage :common-gateway.channel
@@ -25,4 +31,8 @@
 
 (defpackage :common-gateway.user
   (:documentation "Chat user objects.")
+  (:use :cl))
+
+(defpackage :common-gateway.util
+  (:documentation "Misc. functions.")
   (:use :cl))

@@ -1,4 +1,4 @@
-(in-package :bot)
+(in-package :common-bot.bot)
 
 (defmacro defbot (symbol &rest options)
   "Define a bot and assign it to the bot slot of a symbol."
