@@ -1,4 +1,12 @@
-(in-package :common-gateway.user)
+(in-package :common-gateway)
+
+(defstruct (user (:print-object user-print))
+  "Represents a chat user."
+  (name nil :type string :read-only t)
+  (id nil :type string :read-only t)
+  (bot nil :type boolean :read-only t)
+  (gateway nil :type gateway :read-only t))
+;; todo: add presence; status, message, etc
 
 (defun designates-user-p (string user)
   "Whether a string designates a user."
@@ -11,33 +19,37 @@
       (string-equal (user-id user)
 		    string)))
 
-(defun user-in-gateway (string gateway)
+(defmethod user-in-context ((string string) (gateway gateway))
   "Return a user designated by a string in the context of a gateway."
   (find-if (lambda (user)
 	     (designates-user-p string user))
 	   (gateway-users gateway)))
+
+(defmethod user-in-context ((string string) (server server))
+  "Return a user designated by a string in the context of a server."
+  (find-if (lambda (user)
+	     (designates-user-p string user))
+	   (server-users server)))
+
+(defmethod user-in-context ((string string) (channel channel))
+  "Return a user designated by a string in the context of a channel."
+  (find-if (lambda (user)
+	     (designates-user-p string user))
+	   (channel-users channel)))
 
 (defun user (designator &optional context)
   "Return a user designated by a designator."
   (cond ((user-p designator)
 	 designator)
 	((stringp designator)
-	 (user-in-gateway designator context))
+	 (user-in-context designator context))
 	(t (error "Invalid user designator!"))))
 
-(defstruct (user (:print-object user-print))
-  "Represents a chat user."
-  (name nil :type string :read-only t)
-  (id nil :type string :read-only t)
-  (bot nil :type boolean :read-only t)
-  (gateway nil :type gateway :read-only t))
-;; todo: add presence; status, message, etc
-
-(defmethod discriminable-name ((user user))
+(defmethod user-discriminable-name ((user user))
   "Get a name that can discriminate a user on the gateway (e.g. a Discord tag)."
   (user-id user))
 
-(defmethod local-name ((user user) (context t))
+(defmethod user-local-name ((user user) (context t))
   "Get the nickname of a user in some context (e.g. a server)."
   (user-name user))
 

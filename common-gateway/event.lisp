@@ -1,8 +1,9 @@
-(in-package :common-gateway.event)
+(in-package :common-gateway)
 
 ;; event definitions
 
 (defvar *events* (make-array 0
+			     :fill-pointer t
 			     :adjustable t
 			     :element-type 'symbol))
 

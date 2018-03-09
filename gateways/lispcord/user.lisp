@@ -1,6 +1,8 @@
-(in-package :lispcord-gateway.user)
+(in-package :lispcord-gateway)
 
-;; user
+(defmethod user-in-gateway ((string string) (gateway lispcord-gateway))
+  "Return a user designated by a string in the context of a lispcord gateway."
+  nil) ;todo
 
 (defstruct (lispcord-user (:include user))
   "Represents a Discord chat user."

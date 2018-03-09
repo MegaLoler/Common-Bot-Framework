@@ -1,1 +1,1 @@
-(in-package :common-bot.bot-syntax)
+(in-package :common-bot)

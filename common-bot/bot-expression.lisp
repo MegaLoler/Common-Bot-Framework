@@ -1,4 +1,4 @@
-(in-package :common-bot.bot-expression)
+(in-package :common-bot)
 
 (deftype bot-expression ()
   "An expression to be evaluated by a bot."

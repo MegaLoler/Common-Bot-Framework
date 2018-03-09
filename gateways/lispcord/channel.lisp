@@ -1,6 +1,4 @@
-(in-package :lispcord-gateway.channel)
-
-;; channel
+(in-package :lispcord-gateway)
 
 (defstruct (lispcord-channel (:include channel))
   "Represents a Discord chat channel."

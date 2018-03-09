@@ -1,6 +1,4 @@
-(in-package :lispcord-gateway.message)
-
-;; message
+(in-package :lispcord-gateway)
 
 (defstruct (lispcord-message (:include message))
   "Represents a Discord chat message."

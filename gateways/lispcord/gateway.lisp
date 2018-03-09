@@ -1,4 +1,4 @@
-(in-package :lispcord-gateway.gateway)
+(in-package :lispcord-gateway)
 
 ;; lispcord
 
@@ -59,6 +59,9 @@
   "Discord gateway via lispcord."
   (token nil :type string :read-only t)
   (bot nil :type (or null lc:bot)))
+
+(defgeneric gateway-servers (gateway)
+  (:documentation "Get the servers of a gateway."))
 
 (defun lispcord-gateway-init (gateway)
   "Initialize a lispcord gateway object."

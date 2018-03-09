@@ -1,6 +1,11 @@
-(in-package :common-gateway.gateway)
+(in-package :common-gateway)
 
 ;; abstract gateway
+
+(defstruct gateway
+  "An abstract interface to a chat service."
+  (name nil :type string)
+  (listeners (make-listeners-table) :type hash-table))
 
 (defmacro def-gateway-specifier (symbol function)
   "Define a gateway specifier as a cons that starts with `symbol' and is resolved by function designator `function' which returns a gateway designated by the gateway specifier."
@@ -24,13 +29,12 @@
 		  designator))
 	(t (error "Invalid gateway designator!"))))
 
-(defstruct gateway
-  "An abstract interface to a chat service."
-  (name nil :type string)
-  (listeners (make-listeners-table) :type hash-table))
-
 (defgeneric gateway-servers (gateway)
   (:documentation "Get the servers of a gateway."))
+
+(defmethod gateway-users ((gateway gateway))
+  "Get the users of a gateway."
+  nil) ;; assuming you can't just grab all users in a gateway by default
 
 (defmethod stringify ((gateway gateway))
   "User friendly string form of a gateway object."

@@ -1,4 +1,12 @@
-(in-package :common-gateway.message)
+(in-package :common-gateway)
+
+(defstruct (message (:print-object message-print))
+  "Represents a chat message."
+  (id nil :type string :read-only t)
+  (content nil :type string :read-only t)
+  (timestamp nil :type integer :read-only t)
+  (channel nil :type channel :read-only t)
+  (author nil :type user :read-only t))
 
 (defun designates-message-p (string message)
   "Whether a string designates a message."
@@ -20,14 +28,6 @@
 	((stringp designator)
 	 (message-in-channel designator context))
 	(t (error "Invalid message designator!"))))
-
-(defstruct (message (:print-object message-print))
-  "Represents a chat message."
-  (id nil :type string :read-only t)
-  (content nil :type string :read-only t)
-  (timestamp nil :type integer :read-only t)
-  (channel nil :type channel :read-only t)
-  (author nil :type user :read-only t))
 
 (defun message-server (message)
   "Get the server of a message."

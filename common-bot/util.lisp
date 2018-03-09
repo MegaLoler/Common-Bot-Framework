@@ -1,4 +1,4 @@
-(in-package :common-bot.util)
+(in-package :common-bot)
 
 (deftype lambda-list-keyword ()
   "Whether something is a lambda list keyword."

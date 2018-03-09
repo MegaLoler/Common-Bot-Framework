@@ -1,6 +1,4 @@
-(in-package :lispcord-gateway.server)
-
-;; server
+(in-package :lispcord-gateway)
 
 (defstruct (lispcord-server (:include server))
   "Represents a Discord chat server."

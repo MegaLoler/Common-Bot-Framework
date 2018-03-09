@@ -1,4 +1,10 @@
-(in-package :common-gateway.channel)
+(in-package :common-gateway)
+
+(defstruct (channel (:print-object channel-print))
+  "Represents a chat channel."
+  (name nil :type string :read-only t)
+  (id nil :type string :read-only t)
+  (server nil :type server :read-only t))
 
 (defun designates-channel-p (string channel)
   "Whether a string designates a channel."
@@ -20,12 +26,6 @@
 	((stringp designator)
 	 (channel-in-server designator context))
 	(t (error "Invalid channel designator!"))))
-
-(defstruct (channel (:print-object channel-print))
-  "Represents a chat channel."
-  (name nil :type string :read-only t)
-  (id nil :type string :read-only t)
-  (server nil :type server :read-only t))
 
 (defun channel-gateway (channel)
   "Get the gateway of a channel."

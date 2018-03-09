@@ -3,8 +3,8 @@
     :author "MegaLoler"
     :serial t
     :components ((:file "package")
-		 (:file "gateway")
 		 (:file "event")
+		 (:file "gateway")
 		 (:file "server")
 		 (:file "channel")
 		 (:file "message")
