@@ -6,16 +6,19 @@
 
 ;; define event handlers
 
-(deflistener connect (gateway)
+(defun on-connect (gateway)
+  "When the chat client connects to a gateway."
   (format t "Connected to ~A as user ~A."
 	  (gateway-name gateway)
 	  (gateway-user gateway)))
 
-(deflistener disconnect (gateway)
+(defun on-disconnect (gateway)
+  "When the chat client disconnects from a gateway."
   (format t "Disconnected from ~A."
 	  (gateway-name gateway)))
 
-(deflistener message (gateway message)
+(defun on-message (gateway message)
+  "When the chat client receives a message from a gateway."
   (if (message-private-p message)
       (format t "[~A] ~A> ~A~%"
 	      (gateway-name gateway)
@@ -36,7 +39,11 @@
 
 (defun connect ()
   "Start the chat client."
-  (gateway-connect
-   (gateway
-    `(discord
-      ,(prompt "Discord Token: ")))))
+  (let ((discord
+	 (gateway
+	  `(discord
+	    ,(prompt "Discord Token: ")))))
+    (gateway-add-listener discord :connect #'on-connect)
+    (gateway-add-listener discord :disconnect #'on-disconnect)
+    (gateway-add-listener discord :message #'on-message)
+    (gateway-connect discord)))
