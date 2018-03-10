@@ -11,8 +11,10 @@
 	 (command-eval (car expression)
 		       bot
 		       message
-		       (cdr expression)))
-	(t expression)))
+		       (mapcar (lambda (argument)
+				 (bot-eval bot message argument))
+			       (cdr expression))))
+	 (t expression)))
 
 (defun bot-expression-invoke (bot message expression stream)
   "Evaluate a bot expression in a context and present the result."
