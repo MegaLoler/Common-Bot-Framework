@@ -10,4 +10,7 @@
 		 (:file "bot-expression")
 		 (:file "gateway")
 		 (:file "localizable")
-		 (:file "common")))
+		 (:file "common-personalities")
+  (:file "common-languages")
+  (:file "common-strings")
+  (:file "common-commands")))
