@@ -4,10 +4,7 @@
     :serial t
     :depends-on (#:common-gateway)
     :components ((:file "package")
-		 (:file "bot")
 		 (:file "command")
+		 (:file "bot")
 		 (:file "commands")
-		 (:file "bot-expression")
-		 (:file "bot-syntax")
-		 (:file "bot-syntaxes")
-		 (:file "util")))
+		 (:file "bot-expression")))

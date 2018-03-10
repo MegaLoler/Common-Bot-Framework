@@ -1,38 +1,27 @@
 (in-package :common-bot)
 
-(defmacro defbot (symbol &rest options)
-  "Define a bot and assign it to the bot slot of a symbol."
-  `(setf (bot ',symbol)
-	 (make-bot ,@options)))
-
 (defstruct bot
   "Represents a bot."
   (name "Common Bot" :type string)
   (programmer "Unknown" :type string)
-  (documentation "A bot fresh out of the bot factory." :type string))
+  (documentation "A bot fresh out of the bot factory." :type string)
+  (commands nil :type list))
 
-(defun bot (bot)
-  "Get a bot designated by `bot'."
-  (cond ((bot-p bot) bot)
-	((symbolp bot)
-	 (get bot 'bot))
-	(t (error "Invalid bot designator!"))))
+(defmacro defbot (symbol commands &rest options)
+  "Define a bot that knows some commands and assign it as a global variable."
+  `(defparameter ,symbol
+     (make-bot :commands ,commands
+	       ,@options)))
 
-(defun bot-commands (bot)
-  "Return a list of defined commands visible to a bot."
-  (let (commands)
-    (do-symbols (symbol)
-      (let ((command (command symbol)))
-	(if (command-p command)
-	    (push command commands))))))
-
-(defun bot-known-command-p (bot command)
+(defun bot-command-p (bot command)
   "Whether `bot' recognizes `command'."
-  (position (command command) (bot-commands bot)))
+  (find (command command bot)
+	(bot-commands bot)))
 
-(defun bot-connect (bot gateway)
-  "Connect a bot to a gateway."
-  (gateway-connect (gateway gateway)))
-
-(defevent message (gateway message)
-  (channel-send message (bot-eval message)))
+(defun bot-command-by-alias (bot alias)
+  "Get a command object known to a bot by an alias."
+  (or (find-if (lambda (command)
+		 (find alias
+		       (command-aliases command)))
+	       (bot-commands bot))
+      (error "Unrecognized command!")))
