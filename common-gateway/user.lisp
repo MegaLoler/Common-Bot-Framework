@@ -37,6 +37,12 @@
 	     (designates-user-p string user))
 	   (channel-users channel)))
 
+(defmethod user-in-context ((string string) (message message))
+  "Return a user designated by a string in the context of a message."
+  (or (user-in-context string (message-channel message))
+      (user-in-context string (message-server message))
+      (user-in-context string (message-gateway message))))
+
 (defun user (designator &optional context)
   "Return a user designated by a designator."
   (cond ((user-p designator)

@@ -4,8 +4,10 @@
     :serial t
     :depends-on (#:common-gateway)
     :components ((:file "package")
+		 (:file "util")
 		 (:file "command")
 		 (:file "bot")
-		 (:file "commands")
 		 (:file "bot-expression")
-  (:file "gateway")))
+		 (:file "gateway")
+		 (:file "localizable")
+		 (:file "common")))

@@ -24,10 +24,25 @@
 	   command-print
 	   command-suitable-alias
 	   command-permitted-p
-	   command-eval))
+	   command-eval
 
-(defpackage :common-bot.commands
-  (:documentation "Some useful general commands for bots.")
+	   bot-expression
+	   bot-eval
+
+	   bot-connect
+	   bot-disconnect
+	   bot-send
+
+	   localizable
+	   localize
+	   localize-eval
+	   deflocalizable
+	   deflocalization
+	   language
+	   personality))
+
+(defpackage :common-bot.common
+  (:documentation "Some predefined general-purpose commands, strings, languages, and personalities.")
   (:use :cl :common-bot)
   (:export commands-command
 	   info-command))

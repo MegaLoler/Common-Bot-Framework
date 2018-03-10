@@ -11,6 +11,7 @@
 		       bot
 		       message
 		       (mapcar (lambda (argument)
-				 (bot-eval bot message argument))
+				 (localize (bot-eval bot message argument)
+					   nil nil))
 			       (cdr expression))))
-	 (t expression)))
+	(t expression)))
