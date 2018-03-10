@@ -7,4 +7,5 @@
 		 (:file "command")
 		 (:file "bot")
 		 (:file "commands")
-		 (:file "bot-expression")))
+		 (:file "bot-expression")
+  (:file "gateway")))

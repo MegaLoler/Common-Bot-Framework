@@ -24,6 +24,7 @@
 (defcommand hug-command
     ((hug give-hug)
      :documentation "Give someone a hug! :heart:"
+     :examples '((hug bob) (hug bob linda))
      :permitted #'hug-permitted)
     (bot message &rest recipients)
   recipients)

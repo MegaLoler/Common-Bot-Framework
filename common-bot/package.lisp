@@ -1,6 +1,6 @@
 (defpackage :common-bot
   (:documentation "Top level package.")
-  (:use :cl)
+  (:use :cl :common-gateway)
   (:export bot
 	   defbot
 	   make-bot

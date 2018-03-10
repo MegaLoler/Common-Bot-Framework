@@ -5,7 +5,7 @@
   ;; the recognized names for this command
   (aliases nil :type cons :read-only t)
   ;; a description of this command
-  (documentation "This command is not documented." :type string :read-only t)
+  (documentation nil :type (or null string) :read-only t)
   ;; example bot expressions using this command
   (examples nil :type list :read-only t)
   ;; predicate indicating whether this command can be invoked in a context
