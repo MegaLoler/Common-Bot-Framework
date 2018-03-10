@@ -21,31 +21,18 @@
   (declare (ignorable bot))
   (message-public-p message))
 
-(defun hug-evaluator (bot message &rest recipients)
-  "What the hug command evaluates to when invoked."
-  (declare (ignorable bot))
-  (cons message recipients))
+(defcommand hug-command
+    ((hug give-hug)
+     :documentation "Give someone a hug! :heart:"
+     :permitted #'hug-permitted)
+    (bot message &rest recipients)
+  recipients)
 
-(defun hug-presenter (values stream)
-  "When the results of the hug command is to be displayed."
-  (let ((message (car values))
-	(recipients (cdr values)))
-    (loop
-       :for recipient :in recipients
-       :do (format stream "_~A gives a big ol' hug to ~A!_ :heart:~%"
-		   (message-author message)
-		   (user recipient message)))))
-
-(defcommand hug-command (hug give-hug)
-  :documentation "Give someone a hug! :heart:"
-  :permitted #'hug-permitted
-  :evaluator #'hug-evaluator
-  :presenter #'hug-presenter)
-  
 
 
 
 ;; the bot definition itself!
+;; including the commands it is to recognize
 
 (defbot hug-bot (commands-command info-command hug-command)
     :name "Hug Bot"

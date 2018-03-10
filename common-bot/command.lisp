@@ -5,15 +5,13 @@
   ;; the recognized names for this command
   (aliases nil :type cons :read-only t)
   ;; a description of this command
-  (documentation nil :type string :read-only t)
+  (documentation "This command is not documented." :type string :read-only t)
   ;; example bot expressions using this command
   (examples nil :type list :read-only t)
   ;; predicate indicating whether this command can be invoked in a context
   (permitted #'default-command-permitted :type function :read-only t)
   ;; function used to evaluate this command
-  (evaluator #'default-command-evaluator :type function :read-only t)
-  ;; function used to present the result of evaluating this command to users
-  (presenter #'default-command-presenter :type function :read-only t))
+  (evaluator #'default-command-evaluator :type function :read-only t))
 
 (defun default-command-permitted (bot message)
   "Commands are permitted to be invoked no matter what unless specified otherwise."
@@ -25,15 +23,21 @@
   (declare (ignorable bot message))
   nil)
 
-(defun default-command-presenter (value stream)
-  "Generic function to display the evaluation of a command to users."
-  (format stream "Result: ~A~%" value))
-
-(defmacro defcommand (symbol aliases &rest options)
+(defmacro defcommand (name aliases-and-options lambda-list &body body)
   "Define a command known by some aliases and assign it as a global variable."
-  `(defparameter ,symbol
-     (make-command :aliases ',aliases
-		   ,@options)))
+  (let ((car-list-p (listp (car aliases-and-options))))
+    (let ((env-pars (subseq lambda-list 0 2))
+	  (options (if car-list-p
+		       (cdr aliases-and-options)))
+	  (aliases (if car-list-p
+		       (car aliases-and-options)
+		       aliases-and-options)))
+      `(defparameter ,name
+	 (make-command :aliases ',aliases
+		       :evaluator (lambda ,lambda-list
+				    (declare (ignorable ,@env-pars))
+				    ,@body)
+		       ,@options)))))
 
 (defun command (command &optional bot)
   "Return a command designated by `command'."
@@ -62,15 +66,3 @@
   "Evaluate a command in a context."
   (apply (command-evaluator (command command bot))
 	 `(bot ,message ,@args)))
-
-(defun command-present (command value stream &optional bot)
-  "Present a value via a stream."
-  (funcall (command-presenter (command command bot))
-	   value stream))
-
-(defun command-invoke (command bot message args stream)
-  "Invoke a top-level command, presenting the result to the user."
-  (command-present command
-		   (command-eval command bot message args)
-		   stream
-		   bot))

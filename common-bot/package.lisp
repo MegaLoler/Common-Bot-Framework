@@ -21,13 +21,10 @@
 	   command-examples
 	   command-permitted
 	   command-evaluator
-	   command-presenter
 	   command-print
 	   command-suitable-alias
 	   command-permitted-p
-	   command-eval
-	   command-present
-	   command-invoke))
+	   command-eval))
 
 (defpackage :common-bot.commands
   (:documentation "Some useful general commands for bots.")

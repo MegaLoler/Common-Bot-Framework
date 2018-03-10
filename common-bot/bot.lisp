@@ -7,9 +7,9 @@
   (documentation "A bot fresh out of the bot factory." :type string)
   (commands nil :type list))
 
-(defmacro defbot (symbol commands &rest options)
+(defmacro defbot (name commands &rest options)
   "Define a bot that knows some commands and assign it as a global variable."
-  `(defparameter ,symbol
+  `(defparameter ,name
      (make-bot :commands ,commands
 	       ,@options)))
 
