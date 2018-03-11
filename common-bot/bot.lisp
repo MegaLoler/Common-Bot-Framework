@@ -6,6 +6,8 @@
   (programmer "Unknown" :type string)
   (documentation "A bot fresh out of the bot factory." :type string)
   (prefixes nil :type list)
+  (language nil :type language)
+  (personality nil :type personality)
   (commands nil :type list))
 
 (defmacro defbot (name commands &rest options)

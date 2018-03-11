@@ -9,6 +9,8 @@
 	   bot-programmer
 	   bot-documentation
 	   bot-prefixes
+	   bot-language
+	   bot-personality
 	   bot-commands
 	   bot-command-p
 	   bot-command-by-alias
@@ -43,14 +45,32 @@
 	   deflocalizable
 	   deflocalization
 	   language
-	   personality))
+	   make-language
+	   language-p
+	   language-code
+	   language-name
+	   personality
+	   make-personality
+	   personality-p
+	   personality-name))
 
 (defpackage :common-bot.common
   (:documentation "Some predefined general-purpose commands, strings, languages, and personalities.")
-  (:use :cl :common-bot)
+  (:use :cl :common-gateway :common-bot)
   (:export commands-command
 	   info-command
 	   dummy-command
 
 	   commands-string
-	   info-string))
+	   info-string
+
+	   english-language
+	   make-english-language
+	   english-language-p
+	   dutch-language
+	   make-dutch-language
+	   dutch-language-p
+
+	   basic-personality
+	   make-basic-personality
+	   basic-personality-p))

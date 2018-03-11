@@ -8,13 +8,13 @@
   (gateway nil :type gateway :read-only t))
 ;; todo: add presence; status, message, etc
 
-(defun designates-user-p (string user)
+(defun designates-user-p (string user &optional context)
   "Whether a string designates a user."
   (or (string-equal (user-name user)
 		    string)
       (string-equal (user-discriminable-name user)
 		    string)
-      (string-equal (user-local-name user)
+      (string-equal (user-local-name user context)
 		    string)
       (string-equal (user-id user)
 		    string)))
@@ -22,19 +22,19 @@
 (defmethod user-in-context ((string string) (gateway gateway))
   "Return a user designated by a string in the context of a gateway."
   (find-if (lambda (user)
-	     (designates-user-p string user))
+	     (designates-user-p string user gateway))
 	   (gateway-users gateway)))
 
 (defmethod user-in-context ((string string) (server server))
   "Return a user designated by a string in the context of a server."
   (find-if (lambda (user)
-	     (designates-user-p string user))
+	     (designates-user-p string user server))
 	   (server-users server)))
 
 (defmethod user-in-context ((string string) (channel channel))
   "Return a user designated by a string in the context of a channel."
   (find-if (lambda (user)
-	     (designates-user-p string user))
+	     (designates-user-p string user channel))
 	   (channel-users channel)))
 
 (defmethod user-in-context ((string string) (message message))
@@ -47,6 +47,8 @@
   "Return a user designated by a designator."
   (cond ((user-p designator)
 	 designator)
+	((message-p designator)
+	 (message-author designator))
 	((stringp designator)
 	 (user-in-context designator context))
 	(t (error "Invalid user designator!"))))

@@ -43,14 +43,15 @@
 (defun bot-send (bot message gateway object channel)
   "Send an object to a channel on a gateway with a bot and originating message context."
   (gateway-send gateway
-  		;(bot-localize bot message object)
-  		(format nil "~A" (bot-localize bot message object));tmp until text formatting in gateway
+  		(bot-localize bot message object)
   		channel))
 
 (defun bot-localize (bot message object)
   "Localize an object according to a context."
-  (declare (ignorable bot message)) ;fer now
-  (localize-eval object nil nil)) ;; for now, todo 4 real
+  (declare (ignorable message)) ;fer now ; probably gonna change this later
+  (localize-eval object
+		 (bot-language bot)
+		 (bot-personality bot)))
 
 (defun bot-eval-message (bot message)
   "Read and evaluate a message from a gateway."

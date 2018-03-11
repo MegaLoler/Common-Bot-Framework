@@ -10,4 +10,6 @@
 		 (:file "server")
 		 (:file "channel")
 		 (:file "message")
-		 (:file "user")))
+		 (:file "user")
+		 (:file "formatted")
+		 (:file "emoji")))

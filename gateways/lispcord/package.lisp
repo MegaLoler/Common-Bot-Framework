@@ -50,4 +50,5 @@
 	   lispcord-on-close
 	   lispcord-on-message
 
-	   stringify))
+	   stringify
+	   formatted))

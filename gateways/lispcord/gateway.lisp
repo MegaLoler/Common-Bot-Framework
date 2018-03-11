@@ -53,10 +53,10 @@
 
 ;; currently not working in dms; lispcord isnt attaching a channel to received dm messages ?
 (defmethod gateway-send ((gateway lispcord-gateway)
-			 (string string)
+			 object
 			 (channel lispcord-channel))
   "Send a message on Discord."
-  (lispcord:create string
+  (lispcord:create (fmt:formatted object gateway)
 		   (lispcord:from-id (channel-id channel)
 				     :channel)
 		   (lispcord-gateway-bot gateway)))

@@ -6,7 +6,13 @@
 
 (defmethod server-users ((server lispcord-server))
   "Get the users in a Discord server."
-  nil) ;todo
+  (loop
+     :for member :across (lc:members
+			  (get-lispcord-guild-from-gateway-server
+			   server))
+     :collect (make-gateway-user-from-lispcord-user
+	       (server-gateway server)
+	       (lc:user member))))
 
 (defmethod stringify ((server server))
   "User friendly string representation of a server in Discord."

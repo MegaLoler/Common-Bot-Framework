@@ -37,9 +37,11 @@
 
 (defbot hug-bot (commands-command info-command hug-command dummy-command)
     :name "Hug Bot"
-    :programmer "MegaLoler"
+    :programmer "Mego#8517"
     :documentation "Just an example bot for testing this bot framework!"
-    :prefixes '("$$" "test!"))
+    :prefixes '("$$" "test!")
+    :language (make-english-language)
+    :personality (make-basic-personality))
 
 
 
@@ -64,7 +66,7 @@
   "Disconnect the chat client from the gateways."
   (bot-disconnect hug-bot *discord*))
 
-;; (connect "MzY2Mjk4NDEyNDQzODkzNzYx.DYRyKg._fm-HsNscGX-y-eLI5EIU3aDhIA")
+;; (connect)
 ;; (disconnect)
 ;; (gateway-send *discord* (prompt "Message") *last-channel*)
 
