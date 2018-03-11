@@ -12,7 +12,7 @@
 		 (:file "localizable")
 		 (:module "common"
 			  :components
-		 ((:file "personalities")
-		 (:file "languages")
-		 (:file "strings")
-		 (:file "commands")))))
+			  ((:file "personalities")
+			   (:file "languages")
+			   (:file "strings")
+			   (:file "commands")))))
