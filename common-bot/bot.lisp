@@ -10,7 +10,7 @@
 (defmacro defbot (name commands &rest options)
   "Define a bot that knows some commands and assign it as a global variable."
   `(defparameter ,name
-     (make-bot :commands ,commands
+     (make-bot :commands ',commands
 	       ,@options)))
 
 (defun bot-command-p (bot command)

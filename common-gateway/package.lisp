@@ -74,7 +74,7 @@
 	   user-p
 	   user-name
 	   user-id
-	   user-bot
+	   user-botp
 	   user-gateway
 	   designates-user-p
 	   user-in-context

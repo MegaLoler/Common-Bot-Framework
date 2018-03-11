@@ -139,7 +139,7 @@
 		      :tag (format nil "~A#~A"
 				   (lc:name user)
 				   (lc:discrim user))
-		      :bot (lc:botp user)
+		      :botp (lc:botp user)
 		      :gateway gateway))
 
 (defun make-gateway-message-from-lispcord-message (gateway message)

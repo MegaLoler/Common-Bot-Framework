@@ -12,11 +12,10 @@
 
 (defun bot-on-message (bot gateway message)
   "When a bot receives a message from a gateway."
-  (declare (ignorable bot gateway message))
-  ;; need to have a system of filterign out messages not directed at the bot!!!
-  (bot-send bot message gateway
-	    (bot-eval bot message (message-content message)) ;; also need to 'read' this first?
-	    (message-channel message)))
+  (when (bot-attend-p bot message)
+    (bot-send bot message gateway
+	      (bot-eval-message bot message)
+	      (message-channel message))))
 
 (defun bot-connect (bot gateway)
   "Connect a bot to a gateway."
@@ -44,10 +43,26 @@
 (defun bot-send (bot message gateway object channel)
   "Send an object to a channel on a gateway with a bot and originating message context."
   (gateway-send gateway
-		(bot-localize bot message object)
-		channel))
+  		;(bot-localize bot message object)
+  		(format nil "~A" (bot-localize bot message object));tmp until text formatting in gateway
+  		channel))
 
 (defun bot-localize (bot message object)
   "Localize an object according to a context."
   (declare (ignorable bot message)) ;fer now
   (localize-eval object nil nil)) ;; for now, todo 4 real
+
+(defun bot-eval-message (bot message)
+  "Read and evaluate a message from a gateway."
+  ;; gonna put a simple error catching thing in place
+  ;; but i want it to be better, and localizable, and formattable
+  (handler-case
+      (bot-eval bot message
+		(message-content message));; also need to 'read' this first?
+    (condition (condition)
+      (format nil "Something went wrong: ~A" condition))))
+
+(defun bot-attend-p (bot message)
+  "Whether a bot should respond to a message or not."
+  (declare (ignorable bot)) ;; this is just a start
+  (not (user-botp (message-author message))))

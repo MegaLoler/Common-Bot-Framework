@@ -8,6 +8,10 @@
 (defgeneric localize (object language personality)
   (:documentation "Localize a localizable object given some localization context."))
 
+(defmethod localize (object language personality)
+  "For non-localizable objects."
+  object)
+
 (defun localize-eval (object language personality)
   "Recursively localize an object or expression."
   (localize object language personality)) ;;todo 4 real

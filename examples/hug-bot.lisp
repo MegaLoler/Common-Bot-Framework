@@ -1,5 +1,5 @@
 (defpackage :hug-bot
-  (:use :cl :common-bot :common-bot.commands))
+  (:use :cl :common-gateway :lispcord-gateway :common-bot :common-bot.common))
 (in-package :hug-bot)
 
 ;; i want defining bots to be this simple
@@ -44,23 +44,24 @@
 
 ;; now connect the bot to some chat services
 
+(defvar *discord*) ;; the gateway
+
 (defun prompt (prompt-string)
   "Prompt the user for a string."
   (format t "~A:~%" prompt-string)
   (read-line))
 
-(defun connect ()
-  "Connect and run hug bot!"
-  ;; connect the bot to discord!
-  (bot-connect
-   hug-bot
-   `(discord
-     ,(prompt "Discord Token: ")))
-  
-  ;; connect the bot to skype too!
-  ;; (bot-connect
-  ;;  hug-bot
-  ;;  `(skype
-  ;;    ,(prompt "Skype username: ")
-  ;;    ,(prompt "Skype password: ")))
-  )
+(defun connect (&optional (discord-token (prompt "Discord Token")))
+  "Connect the chat client to the gateways."
+  (setf *discord*
+	(bot-connect
+	 hug-bot
+	 `(discord
+	   ,discord-token))))
+
+(defun disconnect ()
+  "Disconnect the chat client from the gateways."
+  (bot-disconnect hug-bot *discord*))
+
+;; (connect "MzY2Mjk4NDEyNDQzODkzNzYx.DYRyKg._fm-HsNscGX-y-eLI5EIU3aDhIA")
+;; (disconnect)

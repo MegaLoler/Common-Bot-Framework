@@ -4,7 +4,7 @@
   "Represents a chat user."
   (name nil :type string :read-only t)
   (id nil :type string :read-only t)
-  (bot nil :type boolean :read-only t)
+  (botp nil :type boolean :read-only t)
   (gateway nil :type gateway :read-only t))
 ;; todo: add presence; status, message, etc
 
