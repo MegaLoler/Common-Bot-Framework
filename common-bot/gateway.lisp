@@ -58,11 +58,14 @@
   ;; but i want it to be better, and localizable, and formattable
   (handler-case
       (bot-eval bot message
-		(message-content message));; also need to 'read' this first?
+		(bot-read
+		 bot (message-content message)))
     (condition (condition)
       (format nil "Something went wrong: ~A" condition))))
 
 (defun bot-attend-p (bot message)
   "Whether a bot should respond to a message or not."
   (declare (ignorable bot)) ;; this is just a start
-  (not (user-botp (message-author message))))
+  (and (not (user-botp (message-author message)))
+       (message-prefixed-p bot
+			   (message-content message))))

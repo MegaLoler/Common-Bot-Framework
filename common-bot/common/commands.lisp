@@ -16,4 +16,4 @@
 
 (defcommand dummy-command (dummy)
     (bot message)
-  "dummy")
+  "it's a dummy command")

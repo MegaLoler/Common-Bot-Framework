@@ -65,4 +65,4 @@
 (defun command-eval (command bot message args)
   "Evaluate a command in a context."
   (apply (command-evaluator (command command bot))
-	 `(bot ,message ,@args)))
+	 `(,bot ,message ,@args)))

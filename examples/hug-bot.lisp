@@ -35,10 +35,11 @@
 ;; the bot definition itself!
 ;; including the commands it is to recognize
 
-(defbot hug-bot (commands-command info-command hug-command)
+(defbot hug-bot (commands-command info-command hug-command dummy-command)
     :name "Hug Bot"
     :programmer "MegaLoler"
-    :documentation "Just an example bot for testing this bot framework!")
+    :documentation "Just an example bot for testing this bot framework!"
+    :prefixes '("$$" "test!"))
 
 
 
@@ -65,3 +66,13 @@
 
 ;; (connect "MzY2Mjk4NDEyNDQzODkzNzYx.DYRyKg._fm-HsNscGX-y-eLI5EIU3aDhIA")
 ;; (disconnect)
+;; (gateway-send *discord* (prompt "Message") *last-channel*)
+
+;;(command (car (bot-commands hug-bot)) hug-bot)
+
+;;(bot-command-by-alias hug-bot (car (bot-commands hug-bot)))
+
+;;(bot-command-by-alias hug-bot 'info)
+
+;;(localize (commands-string hug-bot 2) nil nil)
+

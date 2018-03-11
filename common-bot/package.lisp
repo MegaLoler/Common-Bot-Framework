@@ -8,6 +8,7 @@
 	   bot-name
 	   bot-programmer
 	   bot-documentation
+	   bot-prefixes
 	   bot-commands
 	   bot-command-p
 	   bot-command-by-alias
@@ -28,6 +29,9 @@
 
 	   bot-expression
 	   bot-eval
+	   bot-read
+	   bot-read-string
+	   message-prefixed-p
 
 	   bot-connect
 	   bot-disconnect
@@ -45,4 +49,8 @@
   (:documentation "Some predefined general-purpose commands, strings, languages, and personalities.")
   (:use :cl :common-bot)
   (:export commands-command
-	   info-command))
+	   info-command
+	   dummy-command
+
+	   commands-string
+	   info-string))
