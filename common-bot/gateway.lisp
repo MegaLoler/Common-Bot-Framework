@@ -48,7 +48,7 @@
 
 (defun bot-localize (bot message object)
   "Localize an object according to a context."
-  (declare (ignorable message)) ;fer now ; probably gonna change this later
+  (declare (ignorable message)) ;fer now ; probably gonna change this later when i change what 'context' is
   (localize-eval object
 		 (bot-language bot)
 		 (bot-personality bot)))

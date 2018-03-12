@@ -7,6 +7,7 @@
 	   italic
 	   underline
 	   strike
+	   code
 	   me
 	   formatted))
 (in-package :fmt)
@@ -37,6 +38,10 @@
   "Represents an struck out value."
   (value nil :type t))
 
+(defstruct (code (:print-object print-formatted))
+  "Represents an inline code value."
+  (value nil :type t))
+
 (defstruct (me (:print-object print-formatted))
   "Represents a `/me' expression."
   (value nil :type t))
@@ -56,6 +61,10 @@
 (defmethod object-value ((object strike))
   "Get the value of a bolded object."
   (strike-value object))
+
+(defmethod object-value ((object code))
+  "Get the value of an inline code object."
+  (code-value object))
 
 (defmethod object-value ((object me))
   "Get the value of a `/me' expression."
@@ -86,6 +95,10 @@
 (defun strike (&rest values)
   "Make a struck out concatenation."
   (make-strike :value (make-concatenation :values values)))
+
+(defun code (&rest values)
+  "Make a concatenation of inline code."
+  (make-code :value (make-concatenation :values values)))
 
 (defun me (&rest values)
   "Make a `/me' expression."

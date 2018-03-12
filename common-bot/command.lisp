@@ -5,7 +5,7 @@
   ;; the recognized names for this command
   (aliases nil :type cons :read-only t)
   ;; a description of this command
-  (documentation nil :type (or null string) :read-only t)
+  (documentation nil :type t :read-only t)
   ;; example bot expressions using this command
   (examples nil :type list :read-only t)
   ;; predicate indicating whether this command can be invoked in a context
@@ -51,7 +51,7 @@
 
 (defun command-print (command stream)
   "Print a readable form of a command to a stream."
-  (format stream "~S" (command-suitable-alias command)))
+  (format stream "~A" (command-suitable-alias command)))
 
 (defun command-suitable-alias (command &optional bot)
   "Return an alias suitable for invoking a command."

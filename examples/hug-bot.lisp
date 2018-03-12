@@ -18,6 +18,14 @@
 
 ;; also this is a localizable string, that can be localized per language and bot personality
 
+(deflocalizable hug-command-documentation ()
+  "Documentation of the hug command."
+  :hug-command-documentation)
+
+(deflocalization (hug-command-documentation english nil) ()
+  "Documentation of the hug command in English."
+  (fmt:concat "Give someone a hug! " (emoji:heart)))
+
 (deflocalizable hug-string (hugger victims)
   "String showing who's been hugged."
   victims)
@@ -41,7 +49,7 @@
 
 (defcommand hug-command
     ((hug give-hug)
-     :documentation "Give someone a hug! :heart:"
+     :documentation (hug-command-documentation)
      :examples '((hug mego) (hug bob linda))
      :permitted #'hug-permitted)
     (bot message &rest recipient-designators)
@@ -57,12 +65,12 @@
 ;; the bot definition itself!
 ;; including the commands it is to recognize
 
-(defbot hug-bot (commands-command info-command hug-command dummy-command)
+(defbot hug-bot (commands-command info-command hug-command)
     :name "Hug Bot"
     :programmer "Mego#8517"
     :documentation "Just an example bot for testing this bot framework!"
     :prefixes '("$$" "test!")
-    :language (make-dutch-language)
+    :language (make-english-language)
     :personality (make-basic-personality))
 
 

@@ -65,6 +65,8 @@
 
 	   commands-string
 	   info-string
+	   test-string
+	   test-string-2
 
 	   english-language
 	   make-english-language
@@ -72,6 +74,9 @@
 	   dutch-language
 	   make-dutch-language
 	   dutch-language-p
+	   german-language
+	   make-german-language
+	   german-language-p
 
 	   basic-personality
 	   make-basic-personality

@@ -51,6 +51,8 @@
 	 (message-author designator))
 	((symbolp designator)
 	 (user (string designator) context))
+	((integerp designator)
+	 (user (stringify designator) context))
 	((stringp designator)
 	 (user-in-context designator context))
 	(t (error "Invalid user designator!"))))

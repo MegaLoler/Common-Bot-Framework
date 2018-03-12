@@ -19,3 +19,8 @@
   "Discord formatted underlined value."
   (format stream "__~A__"
 	  (formatted (underline-value value) gateway)))
+
+(defmethod formatted ((value code) (gateway lispcord-gateway:lispcord-gateway) &optional stream)
+  "Discord formatted inline code value."
+  (format stream "`~A`"
+	  (formatted (code-value value) gateway)))
