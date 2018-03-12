@@ -12,6 +12,8 @@
   "For non-localizable objects."
   object)
 
+;;;;; orrrrrr i could just have a generic method to localize localizables that localize the contents too?
+;; and also like... make `formatted' aware of localizable objects??? yeah!!
 (defun localize-eval (object language personality)
   "Recursively localize an object or expression."
   (localize object language personality)) ;;todo 4 real
@@ -87,12 +89,3 @@
 				       'personality)
 				  'personality)))
 	     ,@method-doc-string-and-body))))))
-
-(defstruct language
-  "Represents a natural language."
-  (code nil :type symbol :read-only t)
-  (name nil :type localizable :read-only t))
-
-(defstruct personality
-  "Represents a bot personality."
-  (name nil :type localizable :read-only t))

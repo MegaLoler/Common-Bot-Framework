@@ -20,6 +20,7 @@
 (deflocalization (info-string dutch nil) (bot message)
   "Display bot info in Dutch."
   (fmt:concat "Dit is " (fmt:bold (bot-name bot))
+	      #\Newline
 	      (bot-documentation bot)
   	      #\Newline #\Newline
   	      "Gemaakt met " (emoji:heart)

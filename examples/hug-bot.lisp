@@ -16,6 +16,24 @@
 ;; a command that takes `recipients' as arguments, and is only permitted to be used among other users
 ;; and which tells all those recipients they've been hugged
 
+;; also this is a localizable string, that can be localized per language and bot personality
+
+(deflocalizable hug-string (hugger victims)
+  "String showing who's been hugged."
+  victims)
+
+(deflocalization (hug-string english nil) (hugger victims)
+  "Show who's been hugged in English."
+  (fmt:me hugger " gives "
+	  (fmt:join victims ", " ", and ")
+	  " a big ol' hug."))
+
+(deflocalization (hug-string dutch nil) (hugger victims)
+  "Show who's been hugged in Dutch."
+  (fmt:me hugger " geeft "
+	  (fmt:join victims ", " ", en ")
+	  " een grote knuffel."))
+
 (defun hug-permitted (bot message)
   "Whether the hug command can be used in some context."
   (declare (ignorable bot))
@@ -24,10 +42,14 @@
 (defcommand hug-command
     ((hug give-hug)
      :documentation "Give someone a hug! :heart:"
-     :examples '((hug bob) (hug bob linda))
+     :examples '((hug mego) (hug bob linda))
      :permitted #'hug-permitted)
-    (bot message &rest recipients)
-  recipients)
+    (bot message &rest recipient-designators)
+  (hug-string
+   (message-author message)
+   (loop
+      :for name :in recipient-designators
+      :collect (user name message))))
 
 
 
@@ -40,7 +62,7 @@
     :programmer "Mego#8517"
     :documentation "Just an example bot for testing this bot framework!"
     :prefixes '("$$" "test!")
-    :language (make-english-language)
+    :language (make-dutch-language)
     :personality (make-basic-personality))
 
 
@@ -66,7 +88,7 @@
   "Disconnect the chat client from the gateways."
   (bot-disconnect hug-bot *discord*))
 
-;; (connect)
+;; (connect "MzY2Mjk4NDEyNDQzODkzNzYx.DYY7Fw.CS0ZRCnnub33yggIssm-VC4cfII")
 ;; (disconnect)
 ;; (gateway-send *discord* (prompt "Message") *last-channel*)
 

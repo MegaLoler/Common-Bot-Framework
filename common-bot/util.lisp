@@ -1,11 +1,9 @@
 (in-package :common-bot)
 
-(defun cat (prefix suffix)
+(defun cat (&rest symbols)
   "Concatenate symbols."
   (read-from-string
-   (format nil "~A-~A"
-	   prefix
-	   suffix)))
+   (format nil "~{~A~^-~}" symbols)))
 
 (defun read-string (string)
   "Read from a string until the end."

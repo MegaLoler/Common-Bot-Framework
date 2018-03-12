@@ -10,9 +10,11 @@
 		 (:file "bot-expression")
 		 (:file "gateway")
 		 (:file "localizable")
+		 (:file "language")
+		 (:file "personality")
 		 (:module "common"
 			  :components
-			  ((:file "personalities")
-			   (:file "languages")
+			  ((:file "languages")
+			   (:file "personalities")
 			   (:file "strings")
 			   (:file "commands")))))

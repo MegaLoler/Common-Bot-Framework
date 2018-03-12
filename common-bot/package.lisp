@@ -49,10 +49,12 @@
 	   language-p
 	   language-code
 	   language-name
+	   deflang
 	   personality
 	   make-personality
 	   personality-p
-	   personality-name))
+	   personality-name
+	   defpersonality))
 
 (defpackage :common-bot.common
   (:documentation "Some predefined general-purpose commands, strings, languages, and personalities.")
