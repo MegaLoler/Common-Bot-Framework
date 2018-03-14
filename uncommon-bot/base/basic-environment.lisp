@@ -3,10 +3,14 @@
 (defvar *iteration-max* 1000)
 
 (defclass basic-environment (bot-environment)
-  ((syntax
-    :initarg :syntax
+  ((reader
+    :initarg :reader
     :initform (make-instance 'bot-syntax)
-    :accessor local-syntax)
+    :accessor local-reader)
+   (printer
+    :initarg :printer
+    :initform (make-instance 'bot-syntax)
+    :accessor local-printer)
    (semantics
     :initarg :semantics
     :initform (make-instance 'bot-semantics)

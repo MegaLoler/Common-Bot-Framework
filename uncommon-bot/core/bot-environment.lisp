@@ -6,11 +6,16 @@
     :initform nil
     ;; :type (or null bot-environment) ; this line seems to cause all kinds of weird issues??
     :accessor parent)
-   (syntax
-    :initarg :syntax
+   (reader
+    :initarg :reader
     :initform nil
     :type (or null bot-syntax)
-    :accessor local-syntax)
+    :accessor local-reader)
+   (printer
+    :initarg :printer
+    :initform nil
+    :type (or null bot-syntax)
+    :accessor local-printer)
    (semantics
     :initarg :semantics
     :initform nil
@@ -47,7 +52,7 @@
   "Return the final text protocol of a bot environment."
   (or (local-text-protocol environment)
       (and (parent environment)
-	   (syntax (parent environment)))))
+	   (text-protocol (parent environment)))))
 
 (defmethod language ((environment bot-environment))
   "Return the final language of a bot environment."

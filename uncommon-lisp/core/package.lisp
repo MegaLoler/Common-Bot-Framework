@@ -3,6 +3,8 @@
   (:use :cl)
   (:export environment
 	   parent
+	   reader
+	   printer
 	   syntax
 	   semantics
 

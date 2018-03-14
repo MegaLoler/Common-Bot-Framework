@@ -3,7 +3,8 @@
   (:use :cl :uncommon-lisp)
   (:export bot-environment
 	   parent
-	   syntax
+	   reader
+	   printer
 	   semantics
 	   text-protocol
 	   language
