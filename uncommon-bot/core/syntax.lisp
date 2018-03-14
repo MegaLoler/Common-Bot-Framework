@@ -31,22 +31,19 @@
 
 (defun print-list (syntax object stream environment)
   "Print a list."
+  (format stream "(")
   (loop
      :for item :in object
      :for x :from 1
      :for commap = (< x (length object))
-     :for parenp = (listp item)
      :do (progn
-	   (when parenp
-	     (format stream "("))
 	   (uncommon-lisp-print syntax
 				item
 				stream
 				environment)
-	   (when parenp
-	     (format stream ")"))
 	   (when commap 
-	     (format stream ", ")))))
+	     (format stream ", "))))
+  (format stream ")"))
 
 ;; this is a huge mess
 (defun print-command-expression (syntax cmd args stream environment)

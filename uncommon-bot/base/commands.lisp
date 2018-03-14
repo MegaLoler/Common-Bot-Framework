@@ -728,7 +728,7 @@
 (defclass greater-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(> greater greater-than more more-than bigger bigger-than larger larger-than higher higher-than above over)
+    :initform '(greater greater-than more more-than bigger bigger-than larger larger-than higher higher-than above over >)
     :accessor aliases))
   (:documentation "A command to get whether a value is greater than another."))
 
@@ -743,7 +743,7 @@
 (defclass less-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(< less less-than smaller smaller-than littler littler-than lower lower-than below under)
+    :initform '(less less-than smaller smaller-than littler littler-than lower lower-than below under <)
     :accessor aliases))
   (:documentation "A command to get whether a value is less than another."))
 
@@ -813,4 +813,5 @@
      (arguments list)
      (environment bot-environment))
   "Print values."
-  (uncommon-lisp-print nil arguments *standard-output* environment))
+  (uncommon-lisp-print nil arguments *standard-output* environment)
+  (format t "~%"))
