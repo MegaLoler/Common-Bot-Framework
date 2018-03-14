@@ -16,7 +16,15 @@
 ;; a command that takes `recipients' as arguments, and is only permitted to be used among other users
 ;; and which tells all those recipients they've been hugged
 
-;; also this is a localizable string, that can be localized per language and bot personality
+;; also these are localizable strings, that can be localized per language and bot personality
+
+(deflocalizable hug-bot-documentation ()
+  "Documentation of hug bot."
+  :hug-bot-documentation)
+
+(deflocalization (hug-bot-documentation english nil) ()
+  "Documentation of hug bot in English."
+  "Just an example bot for testing this bot framework!")
 
 (deflocalizable hug-command-documentation ()
   "Documentation of the hug command."
@@ -68,7 +76,7 @@
 (defbot hug-bot (commands-command info-command hug-command)
     :name "Hug Bot"
     :programmer "Mego#8517"
-    :documentation "Just an example bot for testing this bot framework!"
+    :documentation (hug-bot-documentation)
     :prefixes '("$$" "test!")
     :language (make-english-language)
     :personality (make-basic-personality))
