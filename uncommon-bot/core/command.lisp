@@ -26,6 +26,10 @@
   "Commands permitted by default."
   t)
 
+(defmethod alias ((command command))
+  "Get a suitable alias for a command."
+  (car (aliases command)))
+
 (defmethod invoke
     ((command command)
      (arguments list)
@@ -50,3 +54,7 @@
 (defmethod command ((alias symbol) (environment bot-environment))
   "Get a command designated by a symbol in an environment."
   (command (string alias) environment))
+
+(defmethod command (object (environment bot-environment))
+  "Anything else does not designate a command."
+  nil)

@@ -133,7 +133,7 @@
 (defclass add-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(+ add sum)
+    :initform '(add sum +)
     :accessor aliases))
   (:documentation "A command to add values."))
 
@@ -147,7 +147,7 @@
 (defclass subtract-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(- subtract difference)
+    :initform '(subtract difference -)
     :accessor aliases))
   (:documentation "A command to subtract values."))
 
@@ -161,7 +161,7 @@
 (defclass multiply-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(* x multiply product)
+    :initform '(multiply product *)
     :accessor aliases))
   (:documentation "A command to multiply values."))
 
@@ -175,7 +175,7 @@
 (defclass divide-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(/ ÷ divide quotient)
+    :initform '(divide quotient / ÷)
     :accessor aliases))
   (:documentation "A command to divide values."))
 
@@ -382,8 +382,12 @@
 (defclass binding-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(value get variable var binding value-of resolve)
-    :accessor aliases))
+    :initform '(get value variable var binding value-of resolve)
+    :accessor aliases)
+   (eval-args
+    :initarg :eval-args
+    :initform nil
+    :accessor eval-args))
   (:documentation "A command to get the value of a binding in the local environment."))
 
 (defmethod evaluate
@@ -401,8 +405,12 @@
 (defclass bindings-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(values gets variables vars bindings values-of resolves)
-    :accessor aliases))
+    :initform '(gets values variables vars bindings values-of resolves)
+    :accessor aliases)
+   (eval-args
+    :initarg :eval-args
+    :initform nil
+    :accessor eval-args))
   (:documentation "A command to get the values of bindings in the local environment."))
 
 (defmethod evaluate
@@ -418,7 +426,11 @@
   ((aliases
     :initarg :aliases
     :initform '(set set-variable set-var bind set-value-of define def declare)
-    :accessor aliases))
+    :accessor aliases)
+   (eval-args
+    :initarg :eval-args
+    :initform nil
+    :accessor eval-args))
   (:documentation "A command to set the value of a binding in the local environment."))
 
 (defmethod evaluate
@@ -440,7 +452,11 @@
   ((aliases
     :initarg :aliases
     :initform '(sets set-variables set-vars binds set-values-of defines defs declares)
-    :accessor aliases))
+    :accessor aliases)
+   (eval-args
+    :initarg :eval-args
+    :initform nil
+    :accessor eval-args))
   (:documentation "A command to set the values of multiple bindings in the local environment."))
 
 (defmethod evaluate
@@ -784,3 +800,17 @@
 	(invoke (command 'do environment)
 		body
 		environment))))
+
+(defclass print-command (command)
+  ((aliases
+    :initarg :aliases
+    :initform '(say print echo put write)
+    :accessor aliases))
+  (:documentation "A command to print out values."))
+
+(defmethod evaluate
+    ((command print-command)
+     (arguments list)
+     (environment bot-environment))
+  "Print values."
+  (uncommon-lisp-print nil arguments *standard-output* environment))
