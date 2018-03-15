@@ -69,6 +69,7 @@
 	       (make-instance 'when-command)
 	       (make-instance 'make-command)
 	       (make-instance 'delete-command)
-	       (make-instance 'print-command))
+	       (make-instance 'print-command)
+	       (make-instance 'say-command))
     :accessor local-commands))
   (:documentation "A basic environment loaded with some basic assets."))

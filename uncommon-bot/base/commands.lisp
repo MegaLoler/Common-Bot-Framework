@@ -1,5 +1,13 @@
 (in-package :uncommon-bot.base)
 
+(defun ensure-list (value)
+  "Make sure an item is a proper list."
+  (if (listp value)
+      (if (equalp 'list (car value))
+	  (cdr value)
+	  value)
+      (list value)))
+
 (defclass user-command (command)
   ((parameters
     :initarg :parameters
@@ -64,7 +72,7 @@
 	 (cmd (make-instance
 	       'user-command
 	       :aliases aliases
-	       :parameters parameters
+	       :parameters (ensure-list parameters)
 	       :body body
 	       :environment environment)))
     (push-command cmd environment)
@@ -104,7 +112,7 @@
   (let ((parameters (car arguments))
 	(body (cdr arguments)))
     (make-instance 'user-command
-		   :parameters parameters
+		   :parameters (ensure-list parameters)
 		   :body body
 		   :environment environment)))
 
@@ -127,7 +135,7 @@
   (let ((parameters (car arguments))
 	(body (cdr arguments)))
     (make-instance 'user-command
-		   :parameters parameters
+		   :parameters (ensure-list parameters)
 		   :body body)))
 
 (defclass add-command (command)
@@ -335,7 +343,7 @@
       (mapcar (lambda (designator)
 		(command designator environment))
 	      arguments)
-      (commands environment)))
+      (coerce (commands environment) 'list)))
 
 (defclass aliases-command (command)
   ((aliases
@@ -383,11 +391,7 @@
   ((aliases
     :initarg :aliases
     :initform '(get value variable var binding value-of resolve)
-    :accessor aliases)
-   (eval-args
-    :initarg :eval-args
-    :initform nil
-    :accessor eval-args))
+    :accessor aliases))
   (:documentation "A command to get the value of a binding in the local environment."))
 
 (defmethod evaluate
@@ -406,11 +410,7 @@
   ((aliases
     :initarg :aliases
     :initform '(gets values variables vars bindings values-of resolves)
-    :accessor aliases)
-   (eval-args
-    :initarg :eval-args
-    :initform nil
-    :accessor eval-args))
+    :accessor aliases))
   (:documentation "A command to get the values of bindings in the local environment."))
 
 (defmethod evaluate
@@ -426,11 +426,7 @@
   ((aliases
     :initarg :aliases
     :initform '(set set-variable set-var bind set-value-of define def declare)
-    :accessor aliases)
-   (eval-args
-    :initarg :eval-args
-    :initform nil
-    :accessor eval-args))
+    :accessor aliases))
   (:documentation "A command to set the value of a binding in the local environment."))
 
 (defmethod evaluate
@@ -452,11 +448,7 @@
   ((aliases
     :initarg :aliases
     :initform '(sets set-variables set-vars binds set-values-of defines defs declares)
-    :accessor aliases)
-   (eval-args
-    :initarg :eval-args
-    :initform nil
-    :accessor eval-args))
+    :accessor aliases))
   (:documentation "A command to set the values of multiple bindings in the local environment."))
 
 (defmethod evaluate
@@ -711,7 +703,7 @@
 (defclass equals-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(= == eq equal eql equals is same identical match matches)
+    :initform '(equals eq equal eql is same identical match matches = ==)
     :accessor aliases))
   (:documentation "A command to get whether values are equal."))
 
@@ -804,7 +796,7 @@
 (defclass print-command (command)
   ((aliases
     :initarg :aliases
-    :initform '(say print echo put write)
+    :initform '(print echo put write)
     :accessor aliases))
   (:documentation "A command to print out values."))
 
@@ -814,4 +806,25 @@
      (environment bot-environment))
   "Print values."
   (uncommon-lisp-print nil arguments *standard-output* environment)
+  (format t "~%"))
+
+(defclass say-command (command)
+  ((aliases
+    :initarg :aliases
+    :initform '(say)
+    :accessor aliases))
+  (:documentation "A command to print out values as strings."))
+
+(defmethod evaluate
+    ((command say-command)
+     (arguments list)
+     (environment bot-environment))
+  "Print values as strings."
+  (loop
+     :for arg :in arguments
+     :do (if (stringp arg)
+	     (format t "~A " arg)
+	     (progn
+	       (uncommon-lisp-print nil arg *standard-output* environment)
+	       (format t " "))))
   (format t "~%"))
