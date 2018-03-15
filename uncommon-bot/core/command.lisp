@@ -41,7 +41,8 @@
 
 (defmethod command ((command command) (environment bot-environment))
   "Get a command designated by a command in an environment."
-  (find command (commands environment)))
+  command)
+  ;; (find command (commands environment)))
 
 (defmethod command ((alias string) (environment bot-environment))
   "Get a command designated by a string in an environment."

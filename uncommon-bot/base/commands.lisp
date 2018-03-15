@@ -43,9 +43,16 @@
 	  arguments))
 	(env (or (environment command)
 		 environment)))
-    (invoke (command 'let environment)
-	    (cons bindings (body command))
-	    env)))
+    (let ((enviro (make-instance 'bot-environment
+				 :parent env)))
+      (loop
+	 :for binding :in bindings
+	 :for name = (car binding)
+	 :for value = (cadr binding)
+	 :do (bind name value enviro t))
+      (invoke (command 'do environment)
+	      (body command)
+	      enviro))))
 
 (defclass make-command (command)
   ((aliases

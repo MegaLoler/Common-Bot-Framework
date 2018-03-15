@@ -36,8 +36,7 @@
      (expression cons)
      (environment bot-environment))
   "Evaluate a cons."
-  (let ((command (and (symbolp (car expression))
-		      (command (car expression) environment)))
+  (let ((command (command (car expression) environment))
 	(argument-expressions (cdr expression)))
     (if command
 	(let ((arguments
